@@ -1,3 +1,58 @@
+var player = {
+	items: [],
+	pickup : function(item){
+		this.items.push(item.LowerCase());	
+	},
+	drop : function(item){
+	var x = this.items.indexOf(item.toLowerCase());
+                if(x >= 0){
+                        this.items.splice(x,1);
+                }	
+	}
+};
+
+var interpret = function(str){
+	var objects = {};
+	var trimStr = str.trim();
+	var newStr = trimStr.split(" ");
+	var action = newStr.shift();
+	objects.action = action;
+	var item = newStr.join(" ");
+	objects.object = item;
+	return objects;
+}
+
+var execute = function(obj){
+	var action = obj.action;
+	player[action](obj.object);
+}
+
+var report = function(){
+	var listElement = document.querySelector('#inventory > ul');
+        var item = document.createElement('li');
+        var itemList = player.items;
+	for(i = 0; i < itemList.length; i++){
+		var input = itemList[i];
+		var itemText = document.createTextNode(input);
+       		item.appendChild(itemText);
+	}
+        listElement.appendChild(item);	
+}
+
+var gameStep = function(str){
+	var input = this.value;
+	var obj = interpret(input);
+	execute(obj);
+	report();
+}
+
+var gameStart = function(){
+	var inputBox = document.querySelector("input");
+	inputBox.addEventListener("keyup", gameStep);
+}
+
+window.onload = gameStart;
+
 var tests = function(){
 	//Get element for the action
 	var action = document.getElementById('action');
@@ -32,4 +87,5 @@ var tests = function(){
 	listElement2.appendChild(item2);
 }
 
-window.onload = tests;
+console.log(interpret("Pickup Blue Key"));
+
