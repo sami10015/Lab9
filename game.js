@@ -1,7 +1,7 @@
 var player = {
 	items: [],
 	pickup : function(item){
-		this.items.push(item.LowerCase());	
+		this.items.push(item.toLowerCase());	
 	},
 	drop : function(item){
 	var x = this.items.indexOf(item.toLowerCase());
@@ -13,7 +13,8 @@ var player = {
 
 var interpret = function(str){
 	var objects = {};
-	var trimStr = str.trim();
+	var firstStr = str;
+	var trimStr = firstStr.trim();
 	var newStr = trimStr.split(" ");
 	var action = newStr.shift();
 	objects.action = action;
@@ -24,7 +25,8 @@ var interpret = function(str){
 
 var execute = function(obj){
 	var action = obj.action;
-	player[action](obj.object);
+	var newAction = action.toLowerCase();
+	player[newAction](obj.object);
 }
 
 var report = function(){
@@ -40,15 +42,18 @@ var report = function(){
 }
 
 var gameStep = function(str){
-	var input = this.value;
-	var obj = interpret(input);
+	var obj = interpret(str);
 	execute(obj);
 	report();
 }
 
-var gameStart = function(){
+var gameStart = function() {
 	var inputBox = document.querySelector("input");
-	inputBox.addEventListener("keyup", gameStep);
+	inputBox.addEventListener("keyup", function(event){
+		if (event.keyCode === 13) {
+			gameStep(this.value);
+		}
+	});
 }
 
 window.onload = gameStart;
@@ -88,4 +93,5 @@ var tests = function(){
 }
 
 console.log(interpret("Pickup Blue Key"));
+
 
