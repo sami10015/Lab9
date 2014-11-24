@@ -31,14 +31,38 @@ var execute = function(obj){
 
 var report = function(){
 	var listElement = document.querySelector('#inventory > ul');
-        var item = document.createElement('li');
-        var itemList = player.items;
-	for(i = 0; i < itemList.length; i++){
-		var input = itemList[i];
-		var itemText = document.createTextNode(input);
-       		item.appendChild(itemText);
-	}
+	//var listElement2 = document.querySelector('#help > ul');
+	var item = displayInventory();
+	//var actions = displayActions(player);
         listElement.appendChild(item);	
+	//listElement2.appendChild(actions);
+}
+
+var displayInventory = function(){
+	var itemList = player.items;
+        for(i = 0; i < itemList.length; i++){
+                var item = document.createElement('li');
+                var input = itemList[i];
+                var itemText = document.createTextNode(input);
+                item.appendChild(itemText);
+        }
+	return item;
+}
+
+var displayActions = function(obj){
+	var listElement2 = document.querySelector('#help > ul');
+	var propList = Object.keys(obj);
+	console.log(propList);
+	for(var i = 0; i < propList.length; i++){
+		var propName = propList[i];
+		console.log(typeof obj[propName]);
+		if(typeof obj[propName] == 'function'){
+			var action = document.createElement('li');
+			var actionText = document.createTextNode(propName);
+			action.appendChild(actionText);
+		}
+	} 
+	return action;
 }
 
 var gameStep = function(str){
@@ -48,6 +72,9 @@ var gameStep = function(str){
 }
 
 var gameStart = function() {
+	//var listElement2 = document.querySelector('#help > ul');
+	var actions = displayActions(player);
+	listElement2.appendChild(actions);
 	var inputBox = document.querySelector("input");
 	inputBox.addEventListener("keyup", function(event){
 		if (event.keyCode === 13) {
