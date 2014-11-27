@@ -9,7 +9,16 @@ var player = {
                         this.items.splice(x,1);
                 }	
 	}
+	//pLocation : function(map){
+		
+	//}
 };
+
+var clearContent = function(node) {
+    while (node.hasChildNodes()) {
+        node.removeChild(node.firstChild);
+    }
+}
 
 var interpret = function(str){
 	var objects = {};
@@ -38,31 +47,32 @@ var report = function(){
 	//listElement2.appendChild(actions);
 }
 
-var displayInventory = function(){
-	var itemList = player.items;
-        for(i = 0; i < itemList.length; i++){
-                var item = document.createElement('li');
-                var input = itemList[i];
-                var itemText = document.createTextNode(input);
-                item.appendChild(itemText);
-        }
-	return item;
+function displayInventory() {
+    var i, item, inventory;
+
+    inventory = document.querySelector("#inventory > ul");
+    clearContent(inventory);
+
+    for (i in player.items) {
+        item = document.createElement("li");
+        item.textContent = player.items[i];
+        inventory.appendChild(item);
+    }
 }
 
-var displayActions = function(obj){
-	var listElement2 = document.querySelector('#help > ul');
-	var propList = Object.keys(obj);
-	console.log(propList);
-	for(var i = 0; i < propList.length; i++){
-		var propName = propList[i];
-		console.log(typeof obj[propName]);
-		if(typeof obj[propName] == 'function'){
-			var action = document.createElement('li');
-			var actionText = document.createTextNode(propName);
-			action.appendChild(actionText);
-		}
-	} 
-	return action;
+var displayActions = function() {
+    var field, action, actionList;
+
+    actionList = document.querySelector("#help > ul");
+    clearContent(actionList);
+
+    for (field in player) {
+        if (player[field] instanceof Function) {
+            action = document.createElement("li");
+            action.textContent = field;
+            actionList.appendChild(action);
+        }
+    }
 }
 
 var gameStep = function(str){
@@ -73,8 +83,8 @@ var gameStep = function(str){
 
 var gameStart = function() {
 	//var listElement2 = document.querySelector('#help > ul');
-	var actions = displayActions(player);
-	listElement2.appendChild(actions);
+	displayActions(player);
+	//listElement2.appendChild(actions);
 	var inputBox = document.querySelector("input");
 	inputBox.addEventListener("keyup", function(event){
 		if (event.keyCode === 13) {

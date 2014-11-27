@@ -1,7 +1,17 @@
-printOutfunction Location(name, descrip){
+var Location = function(name, descrip){
 	this.name = name,
 	this.description = descrip,
 	this.items = [];	
+}
+
+var connect = function(map, from, to) {
+    map.connections[from][to] = 1;
+    map.connections[to][from] = 1;
+}
+
+var disconnect = function(map, from, to) {
+    map.connections[from][to] = 0;
+    map.connections[to][from] = 0;
 }
 
 var locations = [];
