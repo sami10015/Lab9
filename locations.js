@@ -1,7 +1,21 @@
-var Location = function(name, descrip){
+var Location = function(name, descrip, item, prereq){
 	this.name = name,
 	this.description = descrip,
-	this.items = [];	
+	this.items = [item],
+	this.prereq = [prereq],
+	this.has = function(itemName){
+		if(this.items.indexOf(itemName.toLowerCase()) >= 0){
+			return true;
+		} else {
+			return false;
+		}
+	},
+	this.removeItem = function(itemName){
+		var x = this.items.indexOf(item.toLowerCase());
+		if(x >= 0){
+			this.items.splice(x,1);
+		}
+	};	
 }
 
 var connect = function(map, from, to) {
@@ -16,9 +30,9 @@ var disconnect = function(map, from, to) {
 
 var locations = [];
 
-var Forest = new Location('Forest', 'The location you are in now is a forest that is scattered with dark entities and horrifying creatures');
+var Forest = new Location('Forest', 'The location you are in now is a forest that is scattered with dark entities and horrifying creatures.  You see a blue key on the ground and a Asylum in front of you', 'blue key');
 
-var Asylum = new Location('Asylum', 'The location you are in now is an asylum with dead courpses everywhere and different pieces of equipment that were used back in the past');
+var Asylum = new Location('Asylum', 'The location you are in now is an asylum with dead courpses everywhere and different pieces of equipment that were used back in the past.  The forest is behind you.  You also see a red key', 'red key', 'blue key');
 
 var Beach = new Location('Beach', 'You made it to the beach where fire is all over the sand');
 
@@ -34,7 +48,23 @@ var connections = [
 
 var map = {
 	locations : locations,
-	connections : connections
+	connections : connections,
+	getLocNumber : function(locName){
+		var locNum = -1;
+		for(i in this.locations){
+			if(locName.toLowerCase() == this.locations[i].name.toLowerCase()){
+				locNum = i;
+				break; 
+			}
+		}
+	return locNum;
+	},
+	isConnected : function(from, to){ 
+		if(this.connections[from][to] == 1){
+			return true;
+		} else {
+			return false;}
+	}
 };
 
 var printOut = function(LocNum){

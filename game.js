@@ -1,18 +1,53 @@
 var player = {
 	items: [],
+	pLocation : map.locations[0],	
 	pickup : function(item){
-		this.items.push(item.toLowerCase());	
+		//check if item is in the current Location
+		//if so, add the item to do player's items
+		//be sure to remove it from the current location
+		//if not display message informing the user 		
+		if(checkItem(item) === true){	
+			this.items.push(item.toLowerCase());
+			this.pLocation.removeItem(item);
+		} else {
+			alert('Item is not in the room');
+		}	
 	},
 	drop : function(item){
 	var x = this.items.indexOf(item.toLowerCase());
                 if(x >= 0){
                         this.items.splice(x,1);
-                }	
+			this.pLocation.items.push(item);
+                } else {
+			alert('You do not have that item in your inventory');
+		}	
+	},
+	
+	goto : function(locName){
+		var moveLocNum = map.getLocNumber(locName);
+		var fromLocNum = map.getLocNumber(this.pLocation.name);
+		if(map.getLocNumber(locName) == -1){
+			alert('Location does not exist');
+		} else {			
+			if(map.isConnected(fromLocNum, moveLocNum)){
+				this.pLocation = map.locations[moveLocNum];
+				displayScene(player.pLocation.description);
+			}		
+		}
 	}
-	//pLocation : function(map){
-		
-	//}
+	//check if locName even exists in my map
+	//Has to check if the location is adjacent to the current location FUCNTION		
+	//if so, check if player has the prerequisites
+	//If not tell the user so
+	//Then must update the current location which would change the pLocation
 };
+
+var checkItem = function(itemName){
+	return player.pLocation.has(itemName);
+}
+
+
+console.log(checkItem('blue key'));
 
 var clearContent = function(node) {
     while (node.hasChildNodes()) {
@@ -41,9 +76,9 @@ var execute = function(obj){
 var report = function(){
 	var listElement = document.querySelector('#inventory > ul');
 	//var listElement2 = document.querySelector('#help > ul');
-	var item = displayInventory();
+	displayInventory();
 	//var actions = displayActions(player);
-        listElement.appendChild(item);	
+        //listElement.appendChild(item);	
 	//listElement2.appendChild(actions);
 }
 
@@ -75,6 +110,11 @@ var displayActions = function() {
     }
 }
 
+function displayScene(description) {
+	var output = document.getElementById('scene');
+	output.innerHTML = player.pLocation.description;
+}
+
 var gameStep = function(str){
 	var obj = interpret(str);
 	execute(obj);
@@ -84,6 +124,7 @@ var gameStep = function(str){
 var gameStart = function() {
 	//var listElement2 = document.querySelector('#help > ul');
 	displayActions(player);
+	displayScene(player.pLocation.description);
 	//listElement2.appendChild(actions);
 	var inputBox = document.querySelector("input");
 	inputBox.addEventListener("keyup", function(event){
