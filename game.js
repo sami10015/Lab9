@@ -30,8 +30,13 @@ var player = {
 			alert('Location does not exist');
 		} else {			
 			if(map.isConnected(fromLocNum, moveLocNum)){
-				this.pLocation = map.locations[moveLocNum];
-				displayScene(player.pLocation.description);
+				//Check if player items is same as prereq for location
+				if(checkPreReq(moveLocNum,this.items)){
+					this.pLocation = map.locations[moveLocNum];
+					displayScene(player.pLocation.description);
+				} else {
+					alert('You do not have the required items to go to the next room');
+				}
 			}		
 		}
 	}
@@ -46,8 +51,24 @@ var checkItem = function(itemName){
 	return player.pLocation.has(itemName);
 }
 
+var checkPreReq = function(moveLocNum, playerItems){
+	var Location = map.locations[moveLocNum];
+	var prereq = Location.prereq;
+	if(prereq.length == NaN){
+		return true;
+	}
+	for(var i = 0; i < playerItems.length; i++){
+		 if(prereq.indexOf(playerItems[i].toLowerCase()) >= 0){
+			return true;
+		} 	else {
+		 return false;
+		}
+	}
+}
 
-console.log(checkItem('blue key'));
+var Forest = map.locations[0];
+var prereq = Forest.prereq;
+console.log(prereq/length);
 
 var clearContent = function(node) {
     while (node.hasChildNodes()) {
@@ -170,6 +191,6 @@ var tests = function(){
 	listElement2.appendChild(item2);
 }
 
-console.log(interpret("Pickup Blue Key"));
+
 
 
