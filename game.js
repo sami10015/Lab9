@@ -52,23 +52,20 @@ var checkItem = function(itemName){
 }
 
 var checkPreReq = function(moveLocNum, playerItems){
-	var Location = map.locations[moveLocNum];
-	var prereq = Location.prereq;
-	if(prereq.length == NaN){
+	var location = map.locations[moveLocNum];
+	var prereq = location.prereq;
+	if(prereq == 0){
 		return true;
 	}
 	for(var i = 0; i < playerItems.length; i++){
 		 if(prereq.indexOf(playerItems[i].toLowerCase()) >= 0){
+			player.drop(playerItems[i]);
 			return true;
 		} 	else {
 		 return false;
 		}
 	}
 }
-
-var Forest = map.locations[0];
-var prereq = Forest.prereq;
-console.log(prereq/length);
 
 var clearContent = function(node) {
     while (node.hasChildNodes()) {
@@ -98,6 +95,8 @@ var report = function(){
 	var listElement = document.querySelector('#inventory > ul');
 	//var listElement2 = document.querySelector('#help > ul');
 	displayInventory();
+	displayActions();
+	displayScene(player.pLocation.description);
 	//var actions = displayActions(player);
         //listElement.appendChild(item);	
 	//listElement2.appendChild(actions);
@@ -133,13 +132,14 @@ var displayActions = function() {
 
 function displayScene(description) {
 	var output = document.getElementById('scene');
-	output.innerHTML = player.pLocation.description;
+	clearContent(output);
+	output.innerHTML = description;
 }
 
 var gameStep = function(str){
 	var obj = interpret(str);
 	execute(obj);
-	report();
+	report();	
 }
 
 var gameStart = function() {
