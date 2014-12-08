@@ -1,7 +1,7 @@
 var Location = function(name, descrip, item, prereq){
 	this.name = name,
 	this.items = [item],
-	this.description = buildDescription(descrip,this.items),
+	this.description = descrip,
 	this.prereq = [prereq],
 	this.has = function(itemName){
 		if(this.items.indexOf(itemName.toLowerCase()) >= 0){
@@ -18,16 +18,16 @@ var Location = function(name, descrip, item, prereq){
 	};	
 }
 
-var buildDescription = function(descrip,itemList){
+var buildDescription = function(itemList){
     
-    var result = descrip + ' Room has ';
-        console.log(itemList.length);
+    var result = ' Room has ';
     if(itemList.length == 0){
         return result += 'nothing';
     } else {
       for(i in itemList){
-          return result += itemList[i];
+          result += itemList[i] + ' ';
       }
+          return result;
     }
 }
 
@@ -47,18 +47,39 @@ var locations = [];
 
 var Forest = new Location('Forest', 'The location you are in now is a forest that is scattered with dark entities and horrifying creatures.', 'blue key');
 
-var Asylum = new Location('Asylum', 'The location you are in now is an asylum with dead courpses everywhere and different pieces of equipment that were used back in the past.  The forest is behind you.', 'red key', 'blue key');
+var Asylum = new Location('Asylum', 'The location you are in now is an asylum with dead courpses everywhere and different pieces of equipment that were used back in the past.  The forest is behind you.  You look around and see a kitchen and a bedroom.', 'red key', 'blue key');
 
-var Beach = new Location('Beach', 'You made it to the beach where fire is all over the sand');
+var Kitchen = new Location('Kitchen', 'You are in a kitchen', 'axe', 'red key');
+
+var Bedroom = new Location('Bedroom', 'You are now dead', '', '');
+
+var diningHall = new Location('Dining Hall', 'You are in a Dining Hall.  You see the outside', '', 'axe');
+
+var Closet = new Location('Closet', 'You are now dead', '', '');
+
+var Outside = new Location('Outside', 'You are outside', 'star', 'axe');
+
+var Heaven = new Location('Heaven', 'You are in heaven', '', 'star');
+
 
 locations.push(Forest);
 locations.push(Asylum);
-locations.push(Beach);
+locations.push(Kitchen);
+locations.push(Bedroom);
+locations.push(diningHall);
+locations.push(Closet);
+locations.push(Outside);
+locations.push(Heaven);
 
 var connections = [
-[0, 1, 1],
-[1, 0, 1],
-[1, 1, 0]
+[0, 1, 0, 0, 0, 0, 0, 0], //Forest, Asylum, Kitchen, Bedroom, Dining Hall, Closet, Outside, Wake up
+[1, 0, 1, 1, 0, 0, 0, 0],
+[0, 1, 0, 0, 1, 1, 0, 0],
+[0],
+[0, 0, 1, 0, 0, 0, 1, 0],
+[0],
+[0, 0, 0, 0, 1, 0, 0, 1],
+[0]
 ];
 
 var map = {
@@ -90,4 +111,4 @@ var printOut = function(LocNum){
 	}	
 }
 
-printOut(0);
+

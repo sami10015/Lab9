@@ -33,7 +33,6 @@ var player = {
 				//Check if player items is same as prereq for location
 				if(checkPreReq(moveLocNum,this.items)){
 					this.pLocation = map.locations[moveLocNum];
-					displayScene(player.pLocation.description);
 				} else {
 					alert('You do not have the required items to go to the next room');
 				}
@@ -59,12 +58,11 @@ var checkPreReq = function(moveLocNum, playerItems){
 	}
 	for(var i = 0; i < playerItems.length; i++){
 		 if(prereq.indexOf(playerItems[i].toLowerCase()) >= 0){
-			player.drop(playerItems[i]);
+			//player.drop(playerItems[i]);
 			return true;
-		} 	else {
-		 return false;
 		}
 	}
+  return false;
 }
 
 var clearContent = function(node) {
@@ -133,7 +131,7 @@ var displayActions = function() {
 function displayScene(description) {
 	var output = document.getElementById('scene');
 	clearContent(output);
-	output.innerHTML = description;
+	output.innerHTML = player.pLocation.description + buildDescription(player.pLocation.items);
 }
 
 var gameStep = function(str){
