@@ -1,4 +1,5 @@
 var Location = function(name, descrip, item, prereq){
+	playerName = '';
 	this.name = name,
 	this.items = [item],
 	this.description = descrip,
@@ -21,7 +22,7 @@ var Location = function(name, descrip, item, prereq){
 var buildDescription = function(itemList){
     
     var result = ' Room has ';
-    if(itemList.length == 0){
+    if(itemList.length == 0 || itemList[0] == ''){
         return result += 'nothing';
     } else {
       for(i in itemList){
