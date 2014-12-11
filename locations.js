@@ -1,9 +1,11 @@
-var Location = function(name, descrip, item, prereq){
+var Location = function(name, descrip, item, prereq, image, color){
 	playerName = '';
 	this.name = name,
 	this.items = [item],
 	this.description = descrip,
 	this.prereq = [prereq],
+	this.image = image,
+	this.color = color,
 	this.has = function(itemName){
 		if(this.items.indexOf(itemName.toLowerCase()) >= 0){
 			return true;
@@ -46,11 +48,11 @@ var disconnect = function(map, from, to) {
 
 var locations = [];
 
-var Forest = new Location('Forest', 'The location you are in now is a forest that is scattered with dark entities and horrifying creatures.', 'blue key');
+var Forest = new Location('Forest', 'You don\'t know how you ended up here but you are in a Forest that is scattered with dark entities and horrifying creatures. They don\'t seem to harm you but they do recognize you are there.  After walking your way through them, you see an Asylum in front of you with an awkward blue door.  You look around for items.  What would you like to do?', 'blue key', '', 'Forest.jpg', 'DarkGreen');
 
-var Asylum = new Location('Asylum', 'The location you are in now is an asylum with dead courpses everywhere and different pieces of equipment that were used back in the past.  The forest is behind you.  You look around and see a kitchen and a bedroom.', 'red key', 'blue key');
+var Asylum = new Location('Asylum', 'You opened up the door with the key that you picked up. You are  in now an asylum with dead courpses everywhere and different pieces of equipment that were used back in the past.  The forest is behind you.  You look around and see a door leading to a kitchen and a bedroom.  The kitchen has a lock on it, but the bedroom looks somewhat suspicious.  What would you like to do?', 'red key', 'blue key', 'Asylum.jpg', 'Crimson');
 
-var Kitchen = new Location('Kitchen', 'You are in a kitchen', 'axe', 'red key');
+var Kitchen = new Location('Kitchen', 'You are in a kitchen', 'axe', 'red key', 'Kitchen.jpg', 'Crimson');
 
 var Bedroom = new Location('Bedroom', 'You are now dead', '', '');
 

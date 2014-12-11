@@ -28,6 +28,7 @@ var report = function(){
 	displayInventory();
 	displayActions();
 	displayScene(player.pLocation.description);
+	customizeBackground(player.pLocation.image, player.pLocation.color);
 	//var actions = displayActions(player);
         //listElement.appendChild(item);	
 	//listElement2.appendChild(actions);
@@ -92,6 +93,7 @@ var gameStart = function() {
 	//var listElement2 = document.querySelector('#help > ul');
 	displayActions(player);
 	displayScene(player.pLocation.description);
+	customizeBackground(player.pLocation.image, player.pLocation.color);
 	//listElement2.appendChild(actions);
 	var inputBox = document.querySelector("input");
 	inputBox.addEventListener("keyup", function(event){
@@ -104,6 +106,12 @@ var gameStart = function() {
 function customizePlayer(input) {
     // here we should set the player's name and/or other properties
 	var playerName = input;
+}
+
+function customizeBackground(locImage, locColor){	
+	document.body.style.backgroundImage = "url('"+locImage+"')";
+	document.body.style.backgroundSize = 'cover';
+	document.body.style.color=locColor;
 }
 
 window.onload = gameIntro;
