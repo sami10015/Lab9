@@ -50,19 +50,19 @@ var locations = [];
 
 var Forest = new Location('Forest', 'You don\'t know how you ended up here but you are in a Forest that is scattered with dark entities and horrifying creatures. They don\'t seem to harm you but they do recognize you are there.  After walking your way through them, you see an Asylum in front of you with an awkward blue door.  You look around for items.  What would you like to do?', 'blue key', '', 'Forest.jpg', 'DarkGreen');
 
-var Asylum = new Location('Asylum', 'You opened up the door with the key that you picked up. You are  in now an asylum with dead courpses everywhere and different pieces of equipment that were used back in the past.  The forest is behind you.  You look around and see a door leading to a kitchen and a bedroom.  The kitchen has a lock on it, but the bedroom looks somewhat suspicious.  What would you like to do?', 'red key', 'blue key', 'Asylum.jpg', 'Crimson');
+var Asylum = new Location('Asylum', 'You opened up the door with the key that you picked up. You are in now an asylum with dead courpses everywhere and different pieces of equipment that were used back in the past.  The forest is behind you.  You look around and see a door leading to a kitchen and a bedroom.  The kitchen has a lock on it, but the bedroom looks somewhat suspicious.  What would you like to do?', 'red key', 'blue key', 'Asylum.jpg', 'Crimson');
 
-var Kitchen = new Location('Kitchen', 'You are in a kitchen', 'axe', 'red key', 'Kitchen.jpg', 'Crimson');
+var Kitchen = new Location('Kitchen', 'You slowly walk into the kitchen unaware of what is going on.  You see dirty pans and plates everywhere and smell the stench of rotten food.  There is a dining hall in front of you with a barricated door, and a closet that is rattling around.  What would you like to do?', 'axe', 'red key', 'Kitchen.jpg', 'Crimson');
 
 var Bedroom = new Location('Bedroom', 'You are now dead', '', '');
 
-var diningHall = new Location('Dining Hall', 'You are in a Dining Hall.  You see the outside', '', 'axe');
+var diningHall = new Location('Dining Hall', 'You entered the Dining Hall and you are fatigued.  You see the outside in front of you!  Go!', '', 'axe', 'Dining Hall.jpg', 'GhostWhite');
 
 var Closet = new Location('Closet', 'You are now dead', '', '');
 
-var Outside = new Location('Outside', 'You are outside', 'star', 'axe');
+var Outside = new Location('Outside', 'You are outside and the monsters have caught up to you.  You slowly look up and see a light shining as if it was heaven.  A star lands in front of you and it is beaming in your face.  What would you like to do?', 'star', 'axe', 'Outside.jpg', 'Blue');
 
-var Heaven = new Location('Heaven', 'You are in heaven', '', 'star');
+var Heaven = new Location('Heaven', 'You have suddenly woken up and you are in your room.  You wonder what that was all about but you suddenly just go back to sleep.  Congratulations you won!', '', 'star', 'Heaven.png', 'White');
 
 
 locations.push(Forest);

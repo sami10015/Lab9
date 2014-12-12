@@ -38,6 +38,10 @@ var player = {
 				}
 			}		
 		}
+	},
+	
+	help : function() {
+		alert('You must enter in an action from the list to the left to continue on with the game.  Be sure to enter in everything correctly!  \nEXAMPLE: goto Forest');
 	}
 	//check if locName even exists in my map
 	//Has to check if the location is adjacent to the current location FUCNTION		
