@@ -74,15 +74,20 @@ var gameStep = function(str){
 	report();	
 }
 
+// var eraseText = function(){
+	// textarea.value = '';
+// }
+
 function gameIntro() {
     var inputBox = document.querySelector("input");
 	var output = document.getElementById('scene');
-	output.innerHTML = "What would you like your name to be?";
+	output.innerHTML = "Welcome to The Dream!  This is a Text-Based Adventure Game so to play you have to enter an action on the left, and then enter whatever you would like on the right depending on what the description is!  Be sure to look in rooms that way you don't run into a monster without an item and end up losing! What would you like your name to be?";
     var listener = function(event) {
         if (event.keyCode === 13) {
             // remove this listener before continuing so it only runs once
             event.target.removeEventListener("keyup", listener);
             customizePlayer(this.value);
+			inputBox.value = '';
             gameStart();
         }
     };
@@ -99,6 +104,7 @@ var gameStart = function() {
 	inputBox.addEventListener("keyup", function(event){
 		if (event.keyCode === 13) {
 			gameStep(this.value);
+			inputBox.value = '';
 		}
 	});
 }

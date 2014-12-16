@@ -1,25 +1,41 @@
-var Monster = function(name, itemToKill, item, image){
+var Monster = function(name, itemToKill, item, image, color){
 	this.name = name,
 	this.itemToKill = itemToKill,
 	this.item = item,
-	this.image = image;
+	this.image = image,
+	this.color = color;
 }
 
-var getMonster = function(monsterName, monsters){
-	for(var i = 0; i < monstersArray; i++){
-		if(monsterName.toLowerCase() === monstersArray[i].name.toLowerCase()){
-			return monstersArray[i];
-		} else {
-			alert('That is not a monster!');
-		}
-	}
-}
-
-var Goblin = new Monster('Goblin', 'axe', '', 'Outside.jpg')
+var Goblin = new Monster('Goblin', 'axe', '', 'Goblin.jpg', 'Green')
 var monsters = [];
 monsters.push(Goblin);
 map.locations[3].monster = Goblin;
 
+
+//New object called book
+//For book to work it must be recognized as an item and could be picked up off the ground
+//Must have a read action in the player that allows player to read message inside the book which will be an alert
+//Must first check if player is trying to read a book and/or has the book
+//Then the read function should check if it is a book by checking comparison of book name to the book lists of names 
+//Then alert
+var Book = function(name, descrip){
+	this.name = name,
+	this.description = descrip;
+}
+var Books = [];
+var GoblinBook = new Book('Goblin Book', 'The Goblin is a tricky creature, but in all honesty if you have an item such as an ' + bolden('axe') + ' to kill it.  If not you might experience a horrible death due to beating.');
+Books.push(GoblinBook);
+
+var checkBook = function(itemName, bookArray){
+	for(var i = 0; i < bookArray; i++){
+		if(itemName.toLowerCase().indexOf(bookArray[i].name.toLowerCase()) >= 0){
+			return true; 
+			break;
+		}
+	}
+	console.log(itemName.toLowerCase().indexOf(bookArray[i].name.toLowerCase())); //Equals 0? 
+	return false;
+}
 
 var player = {
 	items: [],
@@ -56,11 +72,8 @@ var player = {
 		} else if(checkPreReq(moveLocNum, this.items) === false){
 			alert('You may not have the required items to enter the room');
 		} else if(kill(locName) === false){
+			map.locations[8].image = map.locations[moveLocNum].monster.image;
 			this.pLocation = map.locations[8];
-			var monsterImage = map.locations[moveLocNum].monster.image;
-			console.log(monsterImage);
-			document.body.style.backgroundImage = "url('"+monsterImage+"')";
-			document.body.style.backgroundSize = 'cover';
 		} else {
 			this.pLocation = map.locations[moveLocNum];
 		}
@@ -94,13 +107,20 @@ var player = {
 		} else {
 			return alert('You look and see that the room has ' + monster + ' in it.  The room has ' + items + '.');
 		}
+	},
+	
+	read : function(itemName){
+		if(playerHas(itemName) === false){
+			alert('You do not have that item');
+		} else if(checkBook(itemName, Books) === false){
+			alert('That is not a book');
+		} else {
+			console.log(itemName.description);
+			alert('That is a book');
+		}
 	}
-	//check if locName even exists in my map
-	//Has to check if the location is adjacent to the current location FUCNTION		
-	//if so, check if player has the prerequisites
-	//If not tell the user so
-	//Then must update the current location which would change the pLocation
 };
+
 var kill = function(locName){
 	var moveLocNum = map.getLocNumber(locName);
 	if(locations[moveLocNum].monster === ''){
@@ -134,3 +154,12 @@ var checkPreReq = function(moveLocNum, playerItems){
 	}
   return false;
 }
+
+var playerHas = function(itemName){
+	if(player.items.indexOf(itemName.toLowerCase()) >= 0){
+		return true;
+		} else {
+			return false;
+		}
+}
+
