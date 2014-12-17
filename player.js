@@ -6,34 +6,41 @@ var Monster = function(name, itemToKill, item, image, color){
 	this.color = color;
 }
 
-var Goblin = new Monster('Goblin', 'axe', '', 'Goblin.jpg', 'Green')
+var Goblin = new Monster('Goblin', 'axe', '', 'Goblin.jpg', 'Green');
+var Ghoul = new Monster('Ghoul', 'coat', '', 'Ghoul.jpg', 'Red');
 var monsters = [];
 monsters.push(Goblin);
 map.locations[3].monster = Goblin;
+map.locations[5].monster = Ghoul;
 
 
-//New object called book
-//For book to work it must be recognized as an item and could be picked up off the ground
-//Must have a read action in the player that allows player to read message inside the book which will be an alert
-//Must first check if player is trying to read a book and/or has the book
-//Then the read function should check if it is a book by checking comparison of book name to the book lists of names 
-//Then alert
 var Book = function(name, descrip){
 	this.name = name,
 	this.description = descrip;
 }
 var Books = [];
-var GoblinBook = new Book('Goblin Book', 'The Goblin is a tricky creature, but in all honesty if you have an item such as an ' + bolden('axe') + ' to kill it.  If not you might experience a horrible death due to beating.');
+var GoblinBook = new Book('Goblin Book', 'The Goblin is a tricky creature, but in all honesty if you have an item such as an axe to kill it.  If not, you might experience a horrible death due to beating.');
 Books.push(GoblinBook);
+var Letter = new Book('Letter', 'There is no escape from what you have done.  Not even in your sleep can you run away.');
+var memoOne = new Book('Memo#1', 'How could you have done this? Why would you do this to your family?');
+var GhoulBook = new Book('Ghoul Book', 'The Ghoul is one of the most horrifying creatures in this building.  However, if you can hide yourself with a coat, he will not see you.');
+var memoTwo = new Book('Memo#2', 'Your family will never forgive you.  You left them there burning.  Unforgivable.');
+var memoThree = new Book('Memo#3', 'You should take a second and look yourself in the mirror.  To the point where you can enter it.');
+var memoFour = new Book('Memo#4', 'You finally forgave yourself.  Leave this nightmare.');
+Books.push(Letter);
+Books.push(memoOne);
+Books.push(GhoulBook);
+Books.push(memoTwo);
+Books.push(memoThree);
+Books.push(memoFour);
 
 var checkBook = function(itemName, bookArray){
-	for(var i = 0; i < bookArray; i++){
-		if(itemName.toLowerCase().indexOf(bookArray[i].name.toLowerCase()) >= 0){
-			return true; 
+	for(var i = 0; i < bookArray.length; i++){
+		if(itemName.toLowerCase() === bookArray[i].name.toLowerCase()){
+			return alert(bookArray[i].description); 
 			break;
 		}
 	}
-	console.log(itemName.toLowerCase().indexOf(bookArray[i].name.toLowerCase())); //Equals 0? 
 	return false;
 }
 
@@ -91,7 +98,7 @@ var player = {
 		if(locations[locationNumber].monster === ''){
 			var monster = 'no monsters';
 		} else {
-			var monster = 'a' + locationMonster;
+			var monster = 'a ' + locationMonster;
 		}
 		if(locations[locationNumber].items.length === 0){
 			var items = 'no items';
@@ -114,9 +121,6 @@ var player = {
 			alert('You do not have that item');
 		} else if(checkBook(itemName, Books) === false){
 			alert('That is not a book');
-		} else {
-			console.log(itemName.description);
-			alert('That is a book');
 		}
 	}
 };

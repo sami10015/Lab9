@@ -36,7 +36,7 @@ var buildDescription = function(itemList){
         return result += 'nothing';
     } else {
       for(i in itemList){
-          result += itemList[i] + ' ';
+          result += itemList[i] + ', ';
       }
           return result;
     }
@@ -60,23 +60,29 @@ var bolden = function(word){
 
 var locations = [];
 
-var Forest = new Location('Forest', 'You don\'t know how you ended up here but you are in a Forest that is scattered with dark entities and horrifying creatures. They don\'t seem to harm you but they do recognize you are there.  After walking your way through them, you see an ' + bolden('Asylum') + ' in front of you with an awkward blue door.  You look around for items.  What would you like to do?', ['blue key', 'goblin book'], '', 'Forest.jpg', 'DarkGreen');
+var Forest = new Location('Forest', 'You don\'t know how you ended up here but you are in a Forest that is scattered with dark entities and horrifying creatures. They don\'t seem to harm you but they do recognize you are there.  After walking your way through them, you see an ' + bolden('Asylum') + ' in front of you with an awkward blue door.  You look around for items.  What would you like to do?', ['blue key', 'letter'], '', 'Forest.jpg', 'DarkGreen');
 
-var Asylum = new Location('Asylum', 'You opened up the door with the key that you picked up. You are in now an asylum with dead courpses everywhere and different pieces of equipment that were used back in the past.  The ' + bolden('Forest') + ' is behind you.  You look around and see a door leading to a ' + bolden('Kitchen') + ' and a ' + bolden('Bedroom') + '.  The kitchen has a lock on it, but the bedroom looks somewhat suspicious.  What would you like to do?', ['red key', 'goblin book'], 'blue key', 'Asylum.jpg', 'Crimson');
+var Asylum = new Location('Asylum', 'You opened up the door with the key. You are in now an Asylum with dead courpses everywhere and different pieces of equipment that were used back in the past.  The ' + bolden('Forest') + ' disappeared.  You look around and see a door leading to a ' + bolden('Kitchen') + ' and a ' + bolden('Bedroom') + '.  The kitchen has a red lock on it, but the bedroom looks somewhat suspicious.  What would you like to do?', ['red key', 'goblin book'], 'blue key', 'Asylum.jpg', 'Crimson');
 
-var Kitchen = new Location('Kitchen', 'You slowly walk into the kitchen unaware of what is going on.  You see dirty pans and plates everywhere and smell the stench of rotten food.  There is a ' + bolden('Dining Hall') + ' in front of you with a barricated door, and a ' + bolden('Closet') + ' that is rattling around.  The ' + bolden('Asylum') + ' is behind you.  What would you like to do?', ['axe'], 'red key', 'Kitchen.jpg', 'Crimson');
+var Kitchen = new Location('Kitchen', 'You slowly walk into the kitchen.  You see dirty pans and plates everywhere and smell the stench of rotten food.  There is a ' + bolden('Dining Hall') + ' in front of you with a barricated door, and a ' + bolden('Closet') + '.  The ' + bolden('Asylum') + ' is behind you.  What would you like to do?', ['axe'], 'red key', 'Kitchen.jpg', 'Crimson');
 
-var Bedroom = new Location('Bedroom', 'You are now in the bedroom', '', '');
+var Bedroom = new Location('Bedroom', 'The Goblin is on the ground dead from the impact of your axe.  You look around and notice that there is a ' + bolden('Cloak Room') + ' in the back and a ' + bolden('Bathroom') + ' to your right with a green door.  The ' + bolden('Asylum') + ' is behind you.', ['memo#1'], '', 'Bedroom.png', 'MediumOrchid');
 
-var diningHall = new Location('Dining Hall', 'You entered the Dining Hall and you are fatigued.  You see the outside in front of you!  Go!', '', 'axe', 'Dining Hall.jpg', 'GhostWhite');
+var diningHall = new Location('Dining Hall', 'You entered the Dining Hall and you are fatigued due to breaking down the door with the axe.  You see the purple ' + bolden('Parlour') + ' door in front of you', ['green key'], 'axe', 'Dining Hall.jpg', 'GhostWhite');
 
-var Closet = new Location('Closet', 'You are now dead', '', '');
+var Closet = new Location('Closet', 'You are terrified as you enter and notice the ghoul just sitting there.  He thankfully can\'t see you cause of your coat. The ' + bolden('Kitchen') + ' is behind you.', ['memo#2', 'purple key'], '', 'Closet.jpg', 'DarkOliveGreen');
 
-var Outside = new Location('Outside', 'You are outside and the monsters have caught up to you.  You slowly look up and see a light shining as if it was heaven.  A star lands in front of you and it is beaming in your face.  What would you like to do?', ['star'], 'axe', 'Outside.jpg', 'Blue');
+var Parlour = new Location('Parlour', 'You entered the parlour and see a door that leads to the ' + bolden('Outside') + '.  The door is however locked.  This is your chance to leave but it requires a key.', ['memo#3'], 'purple key', 'Parlour.jpg', 'Blue');
 
-var Heaven = new Location('Heaven', 'You have suddenly woken up and you are in your room.  You wonder what that was all about but you suddenly just go back to sleep.  Congratulations you won!  There are other endings so look around!', '', 'star', 'Heaven.png', 'White');
+var Outside = new Location('Outside', 'You have suddenly woken up and you are in your room.  You wonder what that was all about but you suddenly just go back to sleep.  Congratulations you won!  There are other endings so look around!', '', 'gold key', 'Heaven.png', 'White');
 
 var Death = new Location('Death', 'You got killed by a monster.  You need to look in the room before you enter.  Also, you must make sure you have to correct item to kill the monster.  HINT: Look around for books and read them.', '', '');
+
+var cloakRoom = new Location('Cloak Room', 'You enter the cloak room and see coats hanging everywhere.  Nothing too interesting in the room besides some solid coats.  The ' + bolden('Bedroom') + ' is behind you.', ['coat'], '', 'CloakRoom.jpg', 'White');
+
+var Bathroom = new Location('Bathroom', 'You enter the bathroom there is water running in the sink under the mirror.', ['ghoul book'], 'green key', 'Bathroom.jpg', 'Olive');
+
+var Mirror = new Location('Mirror', 'You delved into the mirror and find yourself in some other sort of dimension.  You see the ' + bolden('Bathroom') + ' in the distance.', ['gold key' , 'memo#4'], '', 'Mirror.jpg', 'Fuchsia');
 
 locations.push(Forest);
 locations.push(Asylum);
@@ -84,20 +90,26 @@ locations.push(Kitchen);
 locations.push(Bedroom);
 locations.push(diningHall);
 locations.push(Closet);
+locations.push(Parlour);
 locations.push(Outside);
-locations.push(Heaven);
 locations.push(Death);
+locations.push(cloakRoom);
+locations.push(Bathroom);
+locations.push(Mirror);
 
 var connections = [
-[0, 1, 0, 0, 0, 0, 0, 0], //Forest, Asylum, Kitchen, Bedroom, Dining Hall, Closet, Outside, Wake up
-[1, 0, 1, 1, 0, 0, 0, 0],
-[0, 1, 0, 0, 1, 1, 0, 0],
-[0],
-[0, 0, 1, 0, 0, 0, 1, 0],
-[0],
-[0, 0, 0, 0, 1, 0, 0, 1],
-[0]
-[0]
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //Forest, Asylum, Kitchen, Bedroom, Dining Hall, Closet, Parlour, Outside, Death, Cloak Room, Bathroom, Mirror
+[0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], 
+[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+[0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0],
+[0], //One way to win game
+[0], //Death by monster
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
 ];
 
 var map = {
