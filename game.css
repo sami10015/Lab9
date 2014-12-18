@@ -36,6 +36,17 @@ aside#inventory {
     right: 0;
 }
 
+aside#location {
+	left: 0;
+	top : 400;
+}
+aside#name {
+	left: 0;
+	top : 750;
+	font-size : 20pt;
+}
+
+
 main {
     width: 60%;
     left: 20%;

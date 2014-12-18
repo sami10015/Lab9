@@ -24,14 +24,11 @@ var execute = function(obj){
 
 var report = function(){
 	var listElement = document.querySelector('#inventory > ul');
-	//var listElement2 = document.querySelector('#help > ul');
 	displayInventory();
 	displayActions();
 	displayScene(player.pLocation.description);
+	displayLocation();
 	customizeBackground(player.pLocation.image, player.pLocation.color);
-	//var actions = displayActions(player);
-        //listElement.appendChild(item);	
-	//listElement2.appendChild(actions);
 }
 
 function displayInventory() {
@@ -68,6 +65,14 @@ function displayScene(description) {
 	output.innerHTML = player.pLocation.description + buildDescription(player.pLocation.items);
 }
 
+function displayLocation(){
+	var locList = document.querySelector('#location > ul');
+	clearContent(locList);
+	var loc = document.createElement('li');
+	loc.textContent = player.pLocation.name;
+	locList.appendChild(loc);
+}
+
 var gameStep = function(str){
 	var obj = interpret(str);
 	execute(obj);
@@ -77,10 +82,9 @@ var gameStep = function(str){
 function gameIntro() {
     var inputBox = document.querySelector("input");
 	var output = document.getElementById('scene');
-	output.innerHTML = "Welcome to The Dream!  This is a Text-Based Adventure Game so to play you have to enter an action on the left, and then enter whatever you would like on the right depending on what the description is!  Be sure to look in rooms that way you don't run into a monster without an item and end up losing! Be sure to read the books and memos! What would you like your name to be?";
+	output.innerHTML = "Welcome to The Dream!  This is a Text-Based Adventure Game so to play you have to enter an action on the left, and then enter whatever you would like on the right depending on what the description is!  Be sure to look in rooms, that way you don't run into a monster without an item and end up losing! Be sure to read the books and memos! Every item has importance! What would you like your name to be?";
     var listener = function(event) {
         if (event.keyCode === 13) {
-            // remove this listener before continuing so it only runs once
             event.target.removeEventListener("keyup", listener);
             customizePlayer(this.value);
 			inputBox.value = '';
@@ -91,11 +95,10 @@ function gameIntro() {
 }
 
 var gameStart = function() {
-	//var listElement2 = document.querySelector('#help > ul');
 	displayActions(player);
 	displayScene(player.pLocation.description);
 	customizeBackground(player.pLocation.image, player.pLocation.color);
-	//listElement2.appendChild(actions);
+	displayLocation();
 	var inputBox = document.querySelector("input");
 	inputBox.addEventListener("keyup", function(event){
 		if (event.keyCode === 13) {
@@ -106,8 +109,9 @@ var gameStart = function() {
 }
 
 function customizePlayer(input) {
-    // here we should set the player's name and/or other properties
 	var playerName = input;
+	var name = document.getElementById('name');
+	name.textContent = playerName;
 }
 
 function customizeBackground(locImage, locColor){	
@@ -117,41 +121,5 @@ function customizeBackground(locImage, locColor){
 }
 
 window.onload = gameIntro;
-
-var tests = function(){
-	//Get element for the action
-	var action = document.getElementById('action');
-	
-	//Change the scene
-	var output = document.getElementById('scene');
-	output.innerHTML = ('You find yourself in a linux lab learning how to program and make the next best adventure game');
-
-	//Change the title using querySelectorAll function
-	var headings = document.querySelectorAll('header > h1');
-	for(i = 0; i < headings.length; i++){
-		console.log(headings[i].innerHTML);
-		headings[i].innerHTML = ('My Video Game');
-	}
-
-	//Change the list of Items
-	var listElement = document.querySelector('#inventory > ul');
-	var item = document.createElement('li');
-	var itemText = document.createTextNode('Box');
-	item.appendChild(itemText);
-	listElement.appendChild(item);
-
-	//Change the list of actions
-	var listElement2 = document.querySelector('#help > ul');
-	var item2 = document.createElement('li');
-	var itemText2 = document.createTextNode('Left');
-	var itemText3 = document.createTextNode('\nRight');
-	var itemText4 = document.createTextNode('\nUpward');
-	item2.appendChild(itemText2);
-	item2.appendChild(itemText3);
-	item2.appendChild(itemText4);
-	listElement2.appendChild(item2);
-}
-
-
 
 

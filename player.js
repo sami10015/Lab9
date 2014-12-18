@@ -25,7 +25,7 @@ var Letter = new Book('Letter', 'There is no escape from what you have done.  No
 var memoOne = new Book('Memo#1', 'How could you have done this? Why would you do this to your family?');
 var GhoulBook = new Book('Ghoul Book', 'The Ghoul is one of the most horrifying creatures in this building.  However, if you can hide yourself with a coat, he will not see you.');
 var memoTwo = new Book('Memo#2', 'Your family will never forgive you.  You left them there burning.  Unforgivable.');
-var memoThree = new Book('Memo#3', 'You should take a second and look yourself in the mirror.  To the point where you can enter it.');
+var memoThree = new Book('Memo#3', 'You should take a second and look yourself in the mirror.  To the point where you can go into it.');
 var memoFour = new Book('Memo#4', 'You finally forgave yourself.  Leave this nightmare.');
 Books.push(Letter);
 Books.push(memoOne);
@@ -47,11 +47,7 @@ var checkBook = function(itemName, bookArray){
 var player = {
 	items: [],
 	pLocation : map.locations[0],	
-	pickup : function(item){
-		//check if item is in the current Location
-		//if so, add the item to do player's items
-		//be sure to remove it from the current location
-		//if not display message informing the user 		
+	pickup : function(item){		
 		if(checkItem(item) === true){	
 			this.items.push(item.toLowerCase());
 			this.pLocation.removeItem(item);
@@ -132,6 +128,7 @@ var kill = function(locName){
 	} else {
 		for(var i = 0; i < player.items.length; i++){
 			if(player.items[i].toLowerCase() === locations[moveLocNum].monster.itemToKill.toLowerCase()){
+				locations[moveLocNum].monster = '';
 				return true;
 				break;
 			}
@@ -152,7 +149,6 @@ var checkPreReq = function(moveLocNum, playerItems){
 	}
 	for(var i = 0; i < playerItems.length; i++){
 		 if(prereq.indexOf(playerItems[i].toLowerCase()) >= 0){
-			//player.drop(playerItems[i]);
 			return true;
 		}
 	}
